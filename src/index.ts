@@ -193,23 +193,22 @@ program
       ? false
       : (config.attachments.enabled || options.attachments);
 
-    let cslWithAttachments: CslItem = csl;
+    let downloadedAttachmentPaths: string[] = [];
     if (shouldDownloadAttachments) {
       const citekey = typeof csl.id === 'string' ? csl.id : 'ref';
-      const attachmentPaths = await downloadAttachments(fetched.raw, csl, citekey, config, rootDir);
-      if (attachmentPaths.length > 0) {
-        cslWithAttachments = {
-          ...csl,
-          attachment: attachmentPaths,
-          attachments: attachmentPaths,
-          pdflink: attachmentPaths[0]
-        };
-      }
+      downloadedAttachmentPaths = await downloadAttachments(fetched.raw, csl, citekey, config, rootDir);
     }
     const outputPath = resolveOutputNotePath(markdownFile, csl, config, rootDir);
 
     const mode = options.replace ? 'replace' : config.write.mergeStrategy;
-    const result = await writeMarkdownFrontmatter(outputPath, cslWithAttachments, config, mode, options.dryRun);
+    const result = await writeMarkdownFrontmatter(
+      outputPath,
+      csl,
+      config,
+      mode,
+      options.dryRun,
+      downloadedAttachmentPaths
+    );
 
     if (options.dryRun) {
       process.stdout.write(result + (result.endsWith('\n') ? '' : '\n'));
