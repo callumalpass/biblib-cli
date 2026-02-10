@@ -2,7 +2,7 @@
 
 CLI for retrieving bibliographic metadata through Zotero Translation Server and writing CSL-JSON metadata into Markdown YAML frontmatter.
 
-Related project: [BibLib for Obsidian](https://github.com/callumalpass/obsidian-biblib)
+Related project: [BibLib for Obsidian](https://github.com/callumalpass/obsidian-biblib) — see the [CLI documentation](https://callumalpass.github.io/obsidian-biblib/cli/) for detailed usage.
 
 ## Features
 
